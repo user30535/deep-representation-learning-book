@@ -223,28 +223,34 @@ distribution \(q(\vx)\), which may be one of the above. Then we could
 encode the data points with the optimal codebook for the distribution
 \(q(\vx)\). Then, as the number of samples \(N\) becomes large, the
 required average coding length (or coding rate) is given by the
-so-called \textit{cross-entropy}:
+so-called \textit{cross-(differential)-entropy}:
 \begin{equation}
     \CE(p \mmid q) \doteq \Ex_{\vx \sim p}[-\log q(\vx)].
 \end{equation}
 If we have identified
 the correct distribution \(p(\vx)\), the coding rate is given by the
 entropy \(h(p) = \Ex_{\vx \sim p}[-\log p(\vx)]\). It turns out
-that the above coding length \(\CE(p \mmid q)\) is always greater than
+that the above coding rate \(\CE(p \mmid q)\) is always greater than
 or equal to the entropy \(h(\vx)\) unless \(p = q\).
 
 Hence, given a set of sampled data \(\vX\), to determine which
 distribution best characterizes the data among
-\(p^{n}\), \(p^{e}\), and \(\hat{q}\), we may compare their coding
-rates for \(\vX\) and see which yields the lowest rate. We know
-from the above that the (theoretically achievable) coding rate for a
-distribution is closely related to its entropy. In general,
+\(p^{n}\), \(p^{e}\), and \(\hat{q}\), we could encode the data \(\vX\)
+using the codebooks associated with each of these distributions,
+and compare their coding rates to see which yields the lowest rate:
+\begin{equation}
+    \argmin_{q} \CE(p \mmid q)
+\end{equation}
+
+However, since the true distribution \(p\) is unknown,
+we must look for an alternative metric to evaluate.
+For these specific choices of models—\(p^{n}\), \(p^{e}\), and \(\hat{q}\)—
+their coding rates are exactly or nearly identical to their own differential entropies.
+Since their entropies decrease progressively:
 \begin{equation}
     h(p^{n}) > h(p^{e}) > h(\hat{q}).
 \end{equation}
-If the data \(\vX\) were encoded by the codebook associated
-with each of these distributions, the coding rate for \(\vX\) would
-therefore decrease in the same order:
+it naturally follows that the coding rates for \(\vX\) decrease in the same order:
 \begin{equation}
     \CE(p \mmid p^{n}) > \CE(p \mmid p^{e}) > \CE(p \mmid \hat{q}).
 \end{equation}
